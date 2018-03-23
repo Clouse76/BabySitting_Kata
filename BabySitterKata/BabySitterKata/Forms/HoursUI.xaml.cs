@@ -29,7 +29,7 @@ namespace BabySitterKata
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnCalculate_Click(object sender, RoutedEventArgs e)
+        private void BtnCalculate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -50,11 +50,9 @@ namespace BabySitterKata
                     endPM = false;
                 }
                 HoursCalculator DailyResults = new HoursCalculator();
-                StringBuilder ValidationIssues = DailyResults.CheckForBadData(txtStartTime.Text, txtEndTime.Text, txtBedTime.Text, endPM, bedPM);
+                StringBuilder ValidationIssues = DailyResults.CalculatePay(txtStartTime.Text, txtEndTime.Text, txtBedTime.Text, endPM, bedPM);
                 if (ValidationIssues.Length == 0)
                 {   
-
-                    DailyResults.CalculatePay(txtStartTime.Text, txtEndTime.Text, txtBedTime.Text, endPM, bedPM);
                     lblBedHours.Content = DailyResults.TotalBedTime;
                     lblstandardHours.Content = DailyResults.TotalStandardTime;
                     lblOvertimeHours.Content = DailyResults.TotalOverTime;
@@ -75,7 +73,6 @@ namespace BabySitterKata
             {
                 MessageBox.Show("ERROR: " + ex.InnerException + Environment.NewLine + ex.StackTrace, "Error", MessageBoxButton.OK);
             }
-
         }
 
         /// <summary>

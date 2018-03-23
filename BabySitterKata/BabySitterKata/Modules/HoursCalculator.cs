@@ -12,13 +12,16 @@ namespace BabySitterKata
     /// </summary>
     class HoursCalculator
     {
-        public int TotalStandardTime = 0;
-        public int TotalBedTime = 0;
-        public int TotalOverTime = 0;
-        public double StandardTimePrice = 0;
-        public double BedTimePrice = 0;
-        public double OverTimePrice = 0;
+        #region Properties
+        public int TotalStandardTime { get; set; }
+        public int TotalBedTime { get; set; }
+        public int TotalOverTime { get; set; }
+        public double StandardTimePrice { get; set; }
+        public double BedTimePrice { get; set; }
+        public double OverTimePrice { get; set; }
+        #endregion
 
+        #region LocalVariables
         //I figure these should become adjustable at some point.
         private double standardRate = 12;
         private double bedRate = 8;
@@ -26,8 +29,8 @@ namespace BabySitterKata
         private TimeSpan millitaryTime = new TimeSpan(12, 0, 0);
         private TimeSpan latestEndTime = new TimeSpan(4, 0, 0);
         private TimeSpan earliestStartTime = new TimeSpan(17, 0, 0);
-        private bool endPM = false;
-        private bool bedPM = false;
+        private StringBuilder issues = new StringBuilder();
+        #endregion
 
         /// <summary>
         /// This Function executes all the buisness rules to calculate how many hours in each catagory and what the charges will be.
@@ -38,80 +41,85 @@ namespace BabySitterKata
         /// <param name="bedTime"></param>
         /// <param name="EndPM"></param>
         /// <param name="BedPM"></param>
-        public void CalculatePay(string startTime, String endTime, String bedTime, bool EndPM, bool BedPM)
+        public StringBuilder CalculatePay(string startTime, String endTime, String bedTime, bool EndPM, bool BedPM)
         {
-            //take the string inputs and convert them to a Timespan.
-            TimeSpan startTimeSpan = TimeSpan.Parse(startTime);
-            startTimeSpan = startTimeSpan.Add(millitaryTime);  //since we already checked that this is a pm time get the military time.
-            TimeSpan endTimeSpan = TimeSpan.Parse(endTime);
+            //moved validation check to here.
+            CheckForBadData(startTime, endTime, bedTime, EndPM, BedPM);
+            if (issues.Length == 0)
+            {
+                //take the string inputs and convert them to a Timespan.
+                TimeSpan startTimeSpan = TimeSpan.Parse(startTime);
+                startTimeSpan = startTimeSpan.Add(millitaryTime);  //since we already checked that this is a pm time get the military time.
+                TimeSpan endTimeSpan = TimeSpan.Parse(endTime);
 
-            if (EndPM)
-            {
-                endTimeSpan = endTimeSpan.Add(millitaryTime);
-            }
-            int totalBedTime = 0;
-            int totalStandardTime = 0;
-            int totalOverTime = 0;
-            if (bedTime.Length > 0)                                                                        //check to see if the kid went to bed.
-            {
-                TimeSpan bedTimespan = TimeSpan.Parse(bedTime);
-                if (BedPM)
+                if (EndPM)
                 {
-                    bedTimespan = bedTimespan.Add(millitaryTime);
+                    endTimeSpan = endTimeSpan.Add(millitaryTime);
                 }
-                if (endTimeSpan < new TimeSpan(24, 0, 0) && endTimeSpan > latestEndTime)                //Make sure no overtime is due.
+                int totalBedTime = 0;
+                int totalStandardTime = 0;
+                int totalOverTime = 0;
+                if (bedTime.Length > 0)                                                                        //check to see if the kid went to bed.
                 {
-                    totalBedTime = (endTimeSpan - bedTimespan).Hours;                                      //calculate bedtime before endtime if the dont' make it midnight
-                }
-                else
-                {
-                    if (bedTimespan > latestEndTime)
+                    TimeSpan bedTimespan = TimeSpan.Parse(bedTime);
+                    if (BedPM)
                     {
-                        totalBedTime = (new TimeSpan(24, 0, 0) - bedTimespan).Hours;                       //still at work after bed time and after midnight - overtime will be awarded. I mean really what kind of babysitter are you?
+                        bedTimespan = bedTimespan.Add(millitaryTime);
+                    }
+                    if (endTimeSpan < new TimeSpan(24, 0, 0) && endTimeSpan > latestEndTime)                //Make sure no overtime is due.
+                    {
+                        totalBedTime = (endTimeSpan - bedTimespan).Hours;                                      //calculate bedtime before endtime if the dont' make it midnight
+                    }
+                    else
+                    {
+                        if (bedTimespan > latestEndTime)
+                        {
+                            totalBedTime = (new TimeSpan(24, 0, 0) - bedTimespan).Hours;                       //still at work after bed time and after midnight - overtime will be awarded. I mean really what kind of babysitter are you?
+                        }
+                    }
+                    if (bedTimespan < latestEndTime)                                                        //if the kid didn't get to bed until after midnight bed time doesn't need to calculated.
+                    {
+                        totalStandardTime = 7;
+                    }
+                    else
+                    {
+                        totalStandardTime = bedTimespan.Hours - startTimeSpan.Hours;                           //calculate standard time before bed time hours begin.
                     }
                 }
-                if (bedTimespan < latestEndTime)                                                        //if the kid didn't get to bed until after midnight bed time doesn't need to calculated.
+                else                                                                                           //The kid stayed up.                    
                 {
-                    totalStandardTime = 7;
+                    if (endTimeSpan > latestEndTime)
+                    {
+                        totalStandardTime = (endTimeSpan - startTimeSpan).Hours;                              //no bed but ended before midnight
+                    }
+                    else
+                    {
+                        totalStandardTime = 7;                                                                //no bed before midnight full standard hours earned.
+                    }
                 }
-                else
+                if (endTimeSpan <= latestEndTime)                                                          //Check for overtime.
                 {
-                    totalStandardTime = bedTimespan.Hours - startTimeSpan.Hours;                           //calculate standard time before bed time hours begin.
+                    totalOverTime = endTimeSpan.Hours;
                 }
-            }
-            else                                                                                           //The kid stayed up.                    
-            {
-                if (endTimeSpan > latestEndTime)
-                {
-                    totalStandardTime = (endTimeSpan - startTimeSpan).Hours;                              //no bed but ended before midnight
-                }
-                else
-                {
-                    totalStandardTime = 7;                                                                //no bed before midnight full standard hours earned.
-                }
-            }
-            if (endTimeSpan <= latestEndTime)                                                          //Check for overtime.
-            {
-                totalOverTime = endTimeSpan.Hours;
-            }
 
-            //total up the pay.
-            TotalBedTime = totalBedTime;
-            TotalOverTime = totalOverTime;
-            TotalStandardTime = totalStandardTime;
-            StandardTimePrice = totalStandardTime * standardRate;
-            BedTimePrice = totalBedTime * bedRate;
-            OverTimePrice = totalOverTime * overTimeRate;
+                //total up the pay.
+                TotalBedTime = totalBedTime;
+                TotalOverTime = totalOverTime;
+                TotalStandardTime = totalStandardTime;
+                StandardTimePrice = totalStandardTime * standardRate;
+                BedTimePrice = totalBedTime * bedRate;
+                OverTimePrice = totalOverTime * overTimeRate;
+            }
+            return issues;
         }
 
         /// <summary>
         /// This function makes sure that all of the user imput is in the correct format and logically accurate.
         /// will return true if any issues are detected.  there is a great deal of code here and has an oppertunity to be refactored.
         /// </summary>
-        public StringBuilder CheckForBadData(string startTime, String endTime, String bedTime, bool EndPM, bool BedPM)
+        private void CheckForBadData(string startTime, String endTime, String bedTime, bool EndPM, bool BedPM)
         {
             //Create a stringbuilder to hold all the potential issues.
-            StringBuilder issues = new StringBuilder();
             bool goodStart = true, goodEnd = true, goodBed = true;
 
             //check to see if the time is in a valid format inform the user wich one is incorrect. mark them as false if they are bad so further calculations will not occur.
@@ -163,7 +171,6 @@ namespace BabySitterKata
                     }
                 }
             }
-            return issues;
         }
 
         /// <summary>
@@ -172,7 +179,7 @@ namespace BabySitterKata
         /// </summary>
         /// <param name="thetime"></param>
         /// <returns></returns>
-        public bool IsValidTime(string thetime)
+        private bool IsValidTime(string thetime)
         {
             Regex checktime =
                 new Regex(@"^(?:0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
