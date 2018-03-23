@@ -1,0 +1,15 @@
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\bin\Debug\BabySitterKata.exe.config
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\bin\Debug\BabySitterKata.exe
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\bin\Debug\BabySitterKata.pdb
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata.csprojResolveAssemblyReference.cache
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\App.g.cs
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata_MarkupCompile.cache
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata_MarkupCompile.lref
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata.g.resources
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata.Properties.Resources.resources
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata.csproj.GenerateResource.cache
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata.csproj.CoreCompileInputs.cache
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata.exe
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\BabySitterKata.pdb
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\Forms\HoursUI.g.cs
+C:\Users\clouse-1\Documents\Visual Studio 2017\Projects\BabySitterKata\BabySitterKata\obj\Debug\Forms\HoursUI.baml
