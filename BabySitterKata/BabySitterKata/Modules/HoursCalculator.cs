@@ -86,6 +86,12 @@ namespace BabySitterKata
             return issues;
         }
 
+        /// <summary>
+        /// This Function Calculates the total standard time when there is no bed time to calculate.
+        /// </summary>
+        /// <param name="startTimeSpan"></param>
+        /// <param name="endTimeSpan"></param>
+        /// <returns></returns>
         private int CalculateStandardTime(TimeSpan startTimeSpan, TimeSpan endTimeSpan)
         {
             int totalStandardTime;
@@ -103,6 +109,15 @@ namespace BabySitterKata
             return totalStandardTime;
         }
 
+        /// <summary>
+        /// This Function calculates the bed time and the remaining standard time.
+        /// </summary>
+        /// <param name="bedTime"></param>
+        /// <param name="BedPM"></param>
+        /// <param name="startTimeSpan"></param>
+        /// <param name="endTimeSpan"></param>
+        /// <param name="totalBedTime"></param>
+        /// <returns></returns>
         private int CalculateBedtime(string bedTime, bool BedPM, TimeSpan startTimeSpan, TimeSpan endTimeSpan, ref int totalBedTime)
         {
             int totalStandardTime;
