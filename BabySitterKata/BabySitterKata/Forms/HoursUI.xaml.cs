@@ -43,21 +43,29 @@ namespace BabySitterKata
         /// <param name="e"></param>
         private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
-            if(CheckForBadData() == false)
-            {   
-                HoursCalculator DailyResults = new HoursCalculator();
-                DailyResults.CalculatePay(txtStartTime.Text, txtEndTime.Text, txtBedTime.Text, endPM, bedPM);
-                lblBedHours.Content = DailyResults.TotalBedTime;
-                lblstandardHours.Content = DailyResults.TotalStandardTime;
-                lblOvertimeHours.Content = DailyResults.TotalOverTime;
-                lblTotalHours.Content = DailyResults.TotalBedTime + DailyResults.TotalStandardTime + DailyResults.TotalOverTime;
-                lblGrossPay.Content = DailyResults.StandardTimePrice + DailyResults.BedTimePrice + DailyResults.OverTimePrice;
-                lblstandardPay.Content = DailyResults.StandardTimePrice;
-                lblOvertimePay.Content = DailyResults.OverTimePrice;
-                lblBedPay.Content = DailyResults.BedTimePrice;
-                endPM = false;
-                bedPM = false;
+            try
+            {
+                if(CheckForBadData() == false)
+                {   
+                    HoursCalculator DailyResults = new HoursCalculator();
+                    DailyResults.CalculatePay(txtStartTime.Text, txtEndTime.Text, txtBedTime.Text, endPM, bedPM);
+                    lblBedHours.Content = DailyResults.TotalBedTime;
+                    lblstandardHours.Content = DailyResults.TotalStandardTime;
+                    lblOvertimeHours.Content = DailyResults.TotalOverTime;
+                    lblTotalHours.Content = DailyResults.TotalBedTime + DailyResults.TotalStandardTime + DailyResults.TotalOverTime;
+                    lblGrossPay.Content = DailyResults.StandardTimePrice + DailyResults.BedTimePrice + DailyResults.OverTimePrice;
+                    lblstandardPay.Content = DailyResults.StandardTimePrice;
+                    lblOvertimePay.Content = DailyResults.OverTimePrice;
+                    lblBedPay.Content = DailyResults.BedTimePrice;
+                    endPM = false;
+                    bedPM = false;
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show("ERROR: " + ex.InnerException + Environment.NewLine + ex.StackTrace, "Error", MessageBoxButton.OK);
+            }
+
         }
 
         /// <summary>

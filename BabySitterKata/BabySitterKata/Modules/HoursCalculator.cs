@@ -8,7 +8,9 @@ namespace BabySitterKata
 {
     /// <summary>
     /// this class performs the calculations for the work done.  
-    /// There could be an arguement made to move alot of the data validations to this class. 
+    /// There could be an arguement made to move alot of the data validations to this class.
+    /// on one hand I feel like like the UI should do those checks, but if this class was really to stand on it's own
+    /// the validation can go in here.
     /// </summary>
     class HoursCalculator
     {
@@ -24,11 +26,22 @@ namespace BabySitterKata
         private double bedRate = 8;
         private double overTimeRate = 16;
 
+        /// <summary>
+        /// This Function executes all the buisness rules to calculate how many hours in each catagory and what the charges will be.
+        /// I did make a decision that working after midnight takes precadence over bed time. 
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="bedTime"></param>
+        /// <param name="EndPM"></param>
+        /// <param name="BedPM"></param>
         public void CalculatePay(string startTime, String endTime, String bedTime, bool EndPM, bool BedPM)
         {
+            //take the string inputs and convert them to a Timespan.
             TimeSpan startTimeSpan = TimeSpan.Parse(startTime);
-            startTimeSpan = startTimeSpan.Add(new TimeSpan(12, 0, 0));
+            startTimeSpan = startTimeSpan.Add(new TimeSpan(12, 0, 0));  //since we already checked that this is a pm time get the military time.
             TimeSpan endTimeSpan = TimeSpan.Parse(endTime);
+
             if (EndPM)
             {
                 endTimeSpan = endTimeSpan.Add(new TimeSpan(12, 0, 0));
@@ -86,8 +99,6 @@ namespace BabySitterKata
             StandardTimePrice = totalStandardTime * standardRate;
             BedTimePrice = totalBedTime * bedRate;
             OverTimePrice = totalOverTime * overTimeRate;
-            
-            //assign the results.
         }
     }
 }

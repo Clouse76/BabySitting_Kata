@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BabySitterKata"
         mc:Ignorable="d"
-        Title="BabySitter Kata" Height="450" Width="465.335" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="BabySitter Kata" Height="450" Width="465.335" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/BabySitterKata;component/Resources/Green1.ico">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF6DBD1C" Offset="0.612"/>
