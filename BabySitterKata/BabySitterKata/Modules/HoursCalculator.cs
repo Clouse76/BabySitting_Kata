@@ -51,57 +51,30 @@ namespace BabySitterKata
                 TimeSpan startTimeSpan = TimeSpan.Parse(startTime);
                 startTimeSpan = startTimeSpan.Add(millitaryTime);  //since we already checked that this is a pm time get the military time.
                 TimeSpan endTimeSpan = TimeSpan.Parse(endTime);
+                int totalBedTime = 0;
+                int totalStandardTime = 0;
+                int totalOverTime = 0;
 
+                //check to see if time is AM or PM and calculate PM time.
                 if (EndPM)
                 {
                     endTimeSpan = endTimeSpan.Add(millitaryTime);
                 }
-                int totalBedTime = 0;
-                int totalStandardTime = 0;
-                int totalOverTime = 0;
-                if (bedTime.Length > 0)                                                                        //check to see if the kid went to bed.
+                //check to see if the kid went to bed.
+                if (bedTime.Length > 0)
                 {
-                    TimeSpan bedTimespan = TimeSpan.Parse(bedTime);
-                    if (BedPM)
-                    {
-                        bedTimespan = bedTimespan.Add(millitaryTime);
-                    }
-                    if (endTimeSpan < new TimeSpan(24, 0, 0) && endTimeSpan > latestEndTime)                //Make sure no overtime is due.
-                    {
-                        totalBedTime = (endTimeSpan - bedTimespan).Hours;                                      //calculate bedtime before endtime if the dont' make it midnight
-                    }
-                    else
-                    {
-                        if (bedTimespan > latestEndTime)
-                        {
-                            totalBedTime = (new TimeSpan(24, 0, 0) - bedTimespan).Hours;                       //still at work after bed time and after midnight - overtime will be awarded. I mean really what kind of babysitter are you?
-                        }
-                    }
-                    if (bedTimespan < latestEndTime)                                                        //if the kid didn't get to bed until after midnight bed time doesn't need to calculated.
-                    {
-                        totalStandardTime = 7;
-                    }
-                    else
-                    {
-                        totalStandardTime = bedTimespan.Hours - startTimeSpan.Hours;                           //calculate standard time before bed time hours begin.
-                    }
+                    totalStandardTime = CalculateBedtime(bedTime, BedPM, startTimeSpan, endTimeSpan, ref totalBedTime);
                 }
-                else                                                                                           //The kid stayed up.                    
+                //The kid stayed up. 
+                else
                 {
-                    if (endTimeSpan > latestEndTime)
-                    {
-                        totalStandardTime = (endTimeSpan - startTimeSpan).Hours;                              //no bed but ended before midnight
-                    }
-                    else
-                    {
-                        totalStandardTime = 7;                                                                //no bed before midnight full standard hours earned.
-                    }
+                    totalStandardTime = CalculateStandardTime(startTimeSpan, endTimeSpan);
                 }
-                if (endTimeSpan <= latestEndTime)                                                          //Check for overtime.
+                //Check for overtime.
+                if (endTimeSpan <= latestEndTime)
                 {
                     totalOverTime = endTimeSpan.Hours;
                 }
-
                 //total up the pay.
                 TotalBedTime = totalBedTime;
                 TotalOverTime = totalOverTime;
@@ -111,6 +84,54 @@ namespace BabySitterKata
                 OverTimePrice = totalOverTime * overTimeRate;
             }
             return issues;
+        }
+
+        private int CalculateStandardTime(TimeSpan startTimeSpan, TimeSpan endTimeSpan)
+        {
+            int totalStandardTime;
+            if (endTimeSpan > latestEndTime)
+            {
+                //Shift ended before midnight and no bed time.
+                totalStandardTime = (endTimeSpan - startTimeSpan).Hours;                              
+            }
+            else
+            {
+                //Shift went beyond midnight and the kid is still up full standard hours earned.
+                totalStandardTime = 7;                                                              
+            }
+
+            return totalStandardTime;
+        }
+
+        private int CalculateBedtime(string bedTime, bool BedPM, TimeSpan startTimeSpan, TimeSpan endTimeSpan, ref int totalBedTime)
+        {
+            int totalStandardTime;
+            TimeSpan bedTimespan = TimeSpan.Parse(bedTime);
+            if (BedPM)
+            {
+                bedTimespan = bedTimespan.Add(millitaryTime);
+            }
+            if (endTimeSpan < new TimeSpan(24, 0, 0) && endTimeSpan > latestEndTime)                //Make sure no overtime is due.
+            {
+                totalBedTime = (endTimeSpan - bedTimespan).Hours;                                      //calculate bedtime before endtime if the dont' make it midnight
+            }
+            else
+            {
+                if (bedTimespan > latestEndTime)
+                {
+                    totalBedTime = (new TimeSpan(24, 0, 0) - bedTimespan).Hours;                       //still at work after bed time and after midnight - overtime will be awarded. I mean really what kind of babysitter are you?
+                }
+            }
+            if (bedTimespan < latestEndTime)                                                        //if the kid didn't get to bed until after midnight bed time doesn't need to calculated.
+            {
+                totalStandardTime = 7;
+            }
+            else
+            {
+                totalStandardTime = bedTimespan.Hours - startTimeSpan.Hours;                           //calculate standard time before bed time hours begin.
+            }
+
+            return totalStandardTime;
         }
 
         /// <summary>
