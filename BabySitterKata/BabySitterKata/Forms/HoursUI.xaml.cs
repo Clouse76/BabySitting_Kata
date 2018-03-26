@@ -33,15 +33,16 @@ namespace BabySitterKata
         {
             try
             {
-                if(rbBedPM.IsChecked == true)
+                //since the raido button isClicked can have a null value I have to do this check.  messier than a checkbox but i like the look better.
+                if (rbBedPM.IsChecked == true)
                 {
                     bedPM = true;
-                }  //since the raido button isClicked can have a null value I have to do this check.  messier than a checkbox but i like the look better.
+                }
                 else
                 {
                     bedPM = false;
                 }
-                if(rbEndPM.IsChecked == true)
+                if (rbEndPM.IsChecked == true)
                 {
                     endPM = true;
                 }
@@ -52,7 +53,7 @@ namespace BabySitterKata
                 HoursCalculator DailyResults = new HoursCalculator();
                 StringBuilder ValidationIssues = DailyResults.CalculatePay(txtStartTime.Text, txtEndTime.Text, txtBedTime.Text, endPM, bedPM);
                 if (ValidationIssues.Length == 0)
-                {   
+                {
                     lblBedHours.Content = DailyResults.TotalBedTime;
                     lblstandardHours.Content = DailyResults.TotalStandardTime;
                     lblOvertimeHours.Content = DailyResults.TotalOverTime;
@@ -69,7 +70,7 @@ namespace BabySitterKata
                     MessageBox.Show(ValidationIssues.ToString(), "The Following issues need resolved.", MessageBoxButton.OK);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("ERROR: " + ex.InnerException + Environment.NewLine + ex.StackTrace, "Error", MessageBoxButton.OK);
             }

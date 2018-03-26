@@ -25,21 +25,21 @@
         <Button Name="btnCalculate" Content="Calculate" Margin="0,0,113,10" Click="BtnCalculate_Click" TabIndex="107" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
         <Label x:Name="lblBedTime" Content="Bed Time:" HorizontalAlignment="Left" Margin="61,117,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBedTime" HorizontalAlignment="Left" Height="23" Margin="128,117,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="57" TabIndex="104"/>
-        <Label Content="Total Standard Hours:" HorizontalAlignment="Left" Margin="117,206,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total Bed Hours:" HorizontalAlignment="Left" Margin="117,237,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total Overtime Hours:" HorizontalAlignment="Left" Margin="117,268,0,0" VerticalAlignment="Top"/>
-        <Label Content="Toal:" HorizontalAlignment="Left" Margin="117,299,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblstandardHours" Content="0" HorizontalAlignment="Left" Margin="267,206,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblBedHours" Content="0" HorizontalAlignment="Left" Margin="267,237,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblOvertimeHours" Content="0" HorizontalAlignment="Left" Margin="267,268,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblTotalHours" Content="0" HorizontalAlignment="Left" Margin="267,299,0,0" VerticalAlignment="Top"/>
+        <Label Content="Total Standard Hours:" HorizontalAlignment="Left" Margin="99,206,0,0" VerticalAlignment="Top"/>
+        <Label Content="Total Bed Hours:" HorizontalAlignment="Left" Margin="99,237,0,0" VerticalAlignment="Top"/>
+        <Label Content="Total Overtime Hours:" HorizontalAlignment="Left" Margin="99,268,0,0" VerticalAlignment="Top"/>
+        <Label Content="Toal:" HorizontalAlignment="Left" Margin="99,299,0,0" VerticalAlignment="Top"/>
+        <Label Name="lblstandardHours" Content="0" HorizontalAlignment="Left" Margin="263,206,0,0" VerticalAlignment="Top"/>
+        <Label Name="lblBedHours" Content="0" HorizontalAlignment="Left" Margin="263,237,0,0" VerticalAlignment="Top"/>
+        <Label Name="lblOvertimeHours" Content="0" HorizontalAlignment="Left" Margin="263,268,0,0" VerticalAlignment="Top"/>
+        <Label Name="lblTotalHours" Content="0" HorizontalAlignment="Left" Margin="263,299,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="rbBedPM" Content="PM" HorizontalAlignment="Left" Margin="197,122,0,0" VerticalAlignment="Top" GroupName="AMorPMBed" IsChecked="True" TabIndex="105"/>
         <RadioButton x:Name="rbBedAM" Content="AM" HorizontalAlignment="Left" Margin="235,122,0,0" VerticalAlignment="Top" GroupName="AMorPMBed" TabIndex="106"/>
-        <Label x:Name="lblstandardPay" Content="0" HorizontalAlignment="Left" Margin="334,206,0,0" VerticalAlignment="Top" ContentStringFormat="C"/>
-        <Label x:Name="lblOvertimePay" Content="0" HorizontalAlignment="Left" Margin="334,268,0,0" VerticalAlignment="Top" ContentStringFormat="C"/>
-        <Label x:Name="lblBedPay" Content="0" HorizontalAlignment="Left" Margin="334,237,0,0" VerticalAlignment="Top" ContentStringFormat="C"/>
-        <Label x:Name="lblGrossPay" Content="0" HorizontalAlignment="Left" Margin="334,299,0,0" VerticalAlignment="Top" ContentStringFormat="C"/>
-        <Label Content="Hours" HorizontalAlignment="Left" Margin="257,180,0,0" VerticalAlignment="Top"/>
-        <Label Content="Pay" HorizontalAlignment="Left" Margin="328,180,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblstandardPay" Content="0" HorizontalAlignment="Left" Margin="330,206,0,0" VerticalAlignment="Top" ContentStringFormat="C"/>
+        <Label x:Name="lblOvertimePay" Content="0" HorizontalAlignment="Left" Margin="330,268,0,0" VerticalAlignment="Top" ContentStringFormat="C"/>
+        <Label x:Name="lblBedPay" Content="0" HorizontalAlignment="Left" Margin="330,237,0,0" VerticalAlignment="Top" ContentStringFormat="C"/>
+        <Label x:Name="lblGrossPay" Content="0" HorizontalAlignment="Left" Margin="330,299,0,0" VerticalAlignment="Top" ContentStringFormat="C"/>
+        <Label Content="Hours" HorizontalAlignment="Left" Margin="253,180,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pay" HorizontalAlignment="Left" Margin="324,180,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
